@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
 VERIFY_TOKEN = "Emi-token-123"
-ACCESS_TOKEN = "TU_ACCESS_TOKEN"
-PHONE_NUMBER_ID = "TU_PHONE_NUMBER_ID"
+ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN")
+PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_NUMBER_ID")
 
 def send_whatsapp_message(to, message):
     url = f"https://graph.facebook.com/v19.0/{PHONE_NUMBER_ID}/messages"
@@ -57,14 +58,17 @@ def webhook():
 
             if messages:
                 message = messages[0]
-                msg_text = message['text']['body'].lower().strip()
+                msg_text = message.get('text', {}).get('body', '').lower().strip()
+                if not msg_text:
+                    return "EVENT_RECEIVED", 200
+
                 msg_id = message['id']
                 from_number = message['from']
 
                 if any(palabra in msg_text for palabra in ["ingreso", "ingresó", "ingrese"]):
                     send_whatsapp_message(
                         from_number,
-                        "Mensaje recibido ✅ después de 5 minutos sin no te contactamos el ingreso queda AUTORIZADO, no olvides informar el retiro, gracias."
+                        "Mensaje recibido ✅ después de 5 minutos si no te contactamos el ingreso queda AUTORIZADO, no olvides informar el retiro, gracias."
                     )
 
                 elif any(palabra in msg_text for palabra in ["salida", "salgo", "salí"]):
