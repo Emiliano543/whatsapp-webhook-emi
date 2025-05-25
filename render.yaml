@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: whatsapp-webhook-emi
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
