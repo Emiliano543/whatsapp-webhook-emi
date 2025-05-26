@@ -1,27 +1,24 @@
-# Consola CMD Montevideo (Backend)
+# WhatsApp Webhook CMD
 
-## Requisitos
-- Node.js 18+
-- Twilio Account (sandbox activado)
-- Frontend React ya configurado
+Este proyecto contiene un backend en Node.js para manejar webhooks de WhatsApp y un archivo de interfaz `ConsolaCMD.jsx`.
 
-## Instalación
+## Estructura
+
+- `backend/`: servidor Express que maneja los mensajes entrantes
+- `ConsolaCMD.jsx`: componente React (requiere integración en un frontend)
+
+## Uso
+
+### Backend
 
 ```bash
 cd backend
-cp .env.example .env
-# Editar .env con tus credenciales de Twilio
 npm install
-node server.js
+npm start
 ```
 
-## Endpoints
-
-### POST /webhook
-Twilio enviará aquí los mensajes entrantes.
-
-### GET /activos (futuro)
-Obtener mensajes activos desde el frontend.
+Asegúrate de tener un archivo `.env` basado en `.env.example`.
 
 ---
-Proyecto UTE - Automatización de ingresos/salidas por WhatsApp
+
+Este proyecto está listo para ser desplegado en Railway, Vercel o Heroku.
