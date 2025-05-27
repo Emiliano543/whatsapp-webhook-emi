@@ -5,8 +5,11 @@ app = Flask(__name__)
 
 VERIFY_TOKEN = "Emi-token-123"
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST", "HEAD"])
 def webhook():
+    if request.method == "HEAD":
+        return "", 200  # Esto es lo que espera Render
+
     if request.method == "GET":
         mode = request.args.get("hub.mode")
         token = request.args.get("hub.verify_token")
@@ -15,6 +18,7 @@ def webhook():
             return challenge, 200
         else:
             return "Unauthorized", 403
+
     elif request.method == "POST":
         data = request.get_json()
         print("Mensaje recibido:", data)
