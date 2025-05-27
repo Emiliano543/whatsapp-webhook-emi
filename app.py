@@ -2,8 +2,16 @@ from flask import Flask, request
 import os
 
 app = Flask(__name__)
+from flask import Flask, request
+import os
+
+app = Flask(__name__)
 
 VERIFY_TOKEN = "Emi-token-123"
+
+@app.route('/')
+def index():
+    return 'Webhook para WhatsApp Cloud API activo.', 200
 
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
