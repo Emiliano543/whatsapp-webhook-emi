@@ -2,12 +2,9 @@ from flask import Flask, request
 import os
 
 app = Flask(__name__)
-from flask import Flask, request
-import os
 
-app = Flask(__name__)
-
-VERIFY_TOKEN = "Emi-token-123"
+# Usamos variable de entorno con valor por defecto
+VERIFY_TOKEN = os.environ.get("VERIFY_TOKEN", "Emi-token-123")
 
 @app.route('/')
 def index():
