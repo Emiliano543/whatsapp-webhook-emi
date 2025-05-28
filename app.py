@@ -3,12 +3,11 @@ import os
 
 app = Flask(__name__)
 
-# Usamos variable de entorno con valor por defecto
-VERIFY_TOKEN = os.environ.get("VERIFY_TOKEN", "Emi-token-123")
+VERIFY_TOKEN = "Emi-token-123"
 
 @app.route('/')
 def index():
-    return 'Webhook para WhatsApp Cloud API activo.', 200
+    return 'Webhook activo', 200
 
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
@@ -27,9 +26,7 @@ def webhook():
         print("Mensaje recibido:", data)
         return "EVENT_RECEIVED", 200
 
-    else:
-        return "Método no permitido", 405
-
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    # Render asigna el puerto en la variable de entorno PORT
+    port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
