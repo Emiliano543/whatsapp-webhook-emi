@@ -18,6 +18,10 @@ def webhook():
             return challenge, 200
         else:
             return "Error de verificación", 403
+
     if request.method == "POST":
         print("Mensaje recibido:", request.json)
         return "Evento recibido", 200
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
